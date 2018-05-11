@@ -1,0 +1,13 @@
+{
+  "name": "msterymeat",
+  "version": "0.0.1",
+  "main": "index.js",
+  "license": "MIT",
+  "description": "mobx-state-tree proclivities",
+  "author": {
+    "name": "Infinite Red",
+    "email": "npm@infinite.red",
+    "url": "https://github.com/infinitered/msterymeat"
+  }
+}
+
