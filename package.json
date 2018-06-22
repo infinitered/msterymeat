@@ -1,13 +1,88 @@
 {
   "name": "msterymeat",
-  "version": "0.0.1",
-  "main": "index.js",
+  "version": "0.0.2",
   "license": "MIT",
+  "homepage": "https://github.com/infinitered/msterymeat",
   "description": "mobx-state-tree proclivities",
   "author": {
     "name": "Infinite Red",
     "email": "npm@infinite.red",
     "url": "https://github.com/infinitered/msterymeat"
+  },
+  "main": "dist/msterymeat.umd.js",
+  "module": "dist/msterymeat.es5.js",
+  "typings": "dist/msterymeat.d.ts",
+  "files": [
+    "dist",
+    "LICENSE",
+    "README.md"
+  ],
+  "scripts": {
+    "compile": "tsc -p . --pretty",
+    "compile:test": "tsc -p tsconfig-test.json --pretty",
+    "compile:release": "tsc -p tsconfig-release.json --pretty",
+    "build": "rollup -c rollup.config.ts",
+    "clean": "rimraf build build-test dist",
+    "format": "prettier --write {**,.}/*.ts && tslint -p . --fix",
+    "lint": "npm-run-all lint:*",
+    "lint:tsc": "tslint -p tsconfig-test.json",
+    "lint:prettier": "prettier -l {**,.}/*.ts",
+    "lint:ts": "tsc -p tsconfig-test.json --noEmit --pretty",
+    "precommit": "lint-staged",
+    "prepare": "npm-run-all clean compile:release build",
+    "ci": "npm-run-all clean compile:test test",
+    "test": "ava",
+    "e2e": "npm-run-all clean compile:test test prepare"
+  },
+  "devDependencies": {
+    "@types/react": "^16.4.1",
+    "@types/react-test-renderer": "^16.0.1",
+    "ava": "^0.25.0",
+    "husky": "^0.14.3",
+    "lint-staged": "^7.2.0",
+    "lodash.camelcase": "^4.3.0",
+    "mobx": "^5.0.3",
+    "mobx-react": "^5.2.3",
+    "mobx-state-tree": "^2.2.0",
+    "npm-run-all": "^4.1.3",
+    "prettier": "^1.13.5",
+    "react": "^16.4.1",
+    "react-dom": "^16.4.1",
+    "react-test-renderer": "^16.4.1",
+    "rimraf": "^2.6.2",
+    "rollup": "^0.61.1",
+    "rollup-plugin-commonjs": "^9.1.3",
+    "rollup-plugin-filesize": "^2.0.0",
+    "rollup-plugin-node-resolve": "^3.3.0",
+    "rollup-plugin-sourcemaps": "^0.4.2",
+    "tslint": "^5.10.0",
+    "tslint-config-prettier": "^1.13.0",
+    "typescript": "^2.9.2"
+  },
+  "peerDependencies": {
+    "mobx": "^5.0.0",
+    "mobx-react": "^5.2.0",
+    "mobx-state-tree": "^2.2.0",
+    "react": "^16.4.0"
+  },
+  "lint-staged": {
+    "*.ts": [
+      "prettier --write",
+      "tslint --fix",
+      "git add"
+    ],
+    "*.md": [
+      "prettier --write",
+      "git add"
+    ],
+    "*.json": [
+      "prettier --write",
+      "git add"
+    ]
+  },
+  "ava": {
+    "files": [
+      "build-test/**/*.test.js"
+    ]
   }
 }
-
