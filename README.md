@@ -2,18 +2,27 @@
 
 mobx-state-tree proclivities
 
-# Testing
+# Warning
 
-To do a 1-off test, you can run what `ci` runs by typing:
+None of this stuff works. However if that doesn't stop you...
 
 ```sh
+cd packages/msterymeat
+yarn
 yarn ci
-```
-
-# Building
-
-To make a build:
-
-```sh
+yarn clean
 yarn prepare
+
+cd ../demo
+yarn
+rm -rf node_modules/msterymeat
+ln -s $PWD/../msterymeat $PWD/node_modules/msterymeat
 ```
+
+# RootStoreProvider
+
+This appears at the top of your application and provides your stores to the rest of the react components to pick up via `@inject`.
+
+What makes this different from the `<Provider />` that comes with `mobx-react` is that it expects a property called `store`.
+
+That `store` has properties which are other stores. And those are the things that get placed into the `<Provider />` as keys.
