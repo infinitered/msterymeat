@@ -1,6 +1,6 @@
 import React from "react"
 import { Provider as MobxProvider } from "mobx-react"
-import { IStateTreeNode } from "mobx-state-tree"
+import { IStateTreeNode, getMembers } from "mobx-state-tree"
 
 export interface ProviderProps {
   /**
@@ -23,7 +23,11 @@ export class RootStoreProvider extends React.Component<ProviderProps, {}> {
   }
 
   render() {
+    const { store } = this.props
     const stores = {}
+    Object.keys(getMembers(store).properties).forEach(k => {
+      stores[k] = store[k]
+    })
     return <MobxProvider {...stores} children={this.props.children} />
   }
 }
